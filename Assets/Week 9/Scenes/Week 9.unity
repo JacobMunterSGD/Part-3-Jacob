@@ -1380,8 +1380,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentSelection: {fileID: 1113005233}
   dropdown: {fileID: 36007678}
-  archer: {fileID: 8475697662470120084}
+  archer: {fileID: 8891667502466720698}
   thief: {fileID: 5008454032956234275}
+  merchant: {fileID: 8016798456586444771}
 --- !u!4 &321446994
 Transform:
   m_ObjectHideFlags: 0
