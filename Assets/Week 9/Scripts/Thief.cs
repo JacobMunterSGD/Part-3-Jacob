@@ -5,35 +5,19 @@ using UnityEngine;
 public class Thief : Villager
 {
     public GameObject knifePrefab;
-    public Transform spawnPoint;
+    public Transform spawnPoint1;
     public Transform spawnPoint2;
-
-    float dashAmount = 3;
-
-
+    protected override void Attack()
+    {
+        //dash towards mouse
+        destination = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        speed = 7;
+        base.Attack();
+        Instantiate(knifePrefab, spawnPoint1.position, spawnPoint1.rotation);
+        Instantiate(knifePrefab, spawnPoint2.position, spawnPoint2.rotation);
+    }
     public override ChestType CanOpen()
     {
         return ChestType.Thief;
-    }
-
-    protected override void Attack()
-    {
-        Instantiate(knifePrefab, spawnPoint.position, spawnPoint.rotation);
-        Instantiate(knifePrefab, spawnPoint2.position, spawnPoint2.rotation);
-
-        Vector2 localDestination = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 localMovement = localDestination - (Vector2)transform.position;
-
-        rb.position = rb.position + localMovement.normalized * dashAmount;
-
-        destination = rb.position;
-
-
-        //rb.position = rb.position + movement.normalized * dashAmount;
-        //rb.MovePosition(rb.position + finalDirection.normalized * dashAmount);
-
-        base.Attack();
-        
-
     }
 }

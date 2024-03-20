@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class Villager : MonoBehaviour
 {
-    protected Rigidbody2D rb;
+    Rigidbody2D rb;
     Animator animator;
 
     bool clickingOnSelf;
@@ -13,8 +13,8 @@ public class Villager : MonoBehaviour
     public GameObject highlight;
 
     protected Vector2 destination;
-    protected Vector2 movement;
-    float speed = 3;
+    Vector2 movement;
+    protected float speed = 3;
 
     void Start()
     {
@@ -58,6 +58,7 @@ public class Villager : MonoBehaviour
         if (movement.magnitude < 0.1)
         {
             movement = Vector2.zero;
+            speed = 3;
         }
 
         rb.MovePosition(rb.position + movement.normalized * speed * Time.deltaTime);
@@ -87,8 +88,6 @@ public class Villager : MonoBehaviour
 
     public virtual ChestType CanOpen()
     {
-
         return ChestType.Villager;
-
     }
 }
