@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class CharacterControl : MonoBehaviour
 {
     public TextMeshProUGUI currentSelection;
     public static CharacterControl Instance;
     public TMP_Dropdown dropdown;
+    public Slider slider;
 
     public Villager archer;
     public Villager thief;
@@ -38,6 +40,13 @@ public class CharacterControl : MonoBehaviour
 
     }
 
+    public void SliderInput(Single value)
+    {
+        SelectedVillager.transform.localScale = new Vector3(value, value, 0);
+    }
+
+
+
     public static Villager SelectedVillager { get; private set; }
     public static void SetSelectedVillager(Villager villager)
     {
@@ -62,4 +71,6 @@ public class CharacterControl : MonoBehaviour
         //    currentSelection.text = SelectedVillager.GetType().ToString();
         //}
     }
+
+
 }
