@@ -17,18 +17,31 @@ public class Growing : MonoBehaviour
 
     void Start()
     {
-        Square();
-        Triangle();
-        Circle();
+        
+        StartCoroutine(GrowShapes());
+        
     }
 
     void Update()
     {
-        
+        crTMP.text = "Coroutines running: " + running.ToString();
     }
 
-    void Square()
+    IEnumerator GrowShapes()
     {
+        running++;
+        StartCoroutine(Square());
+        yield return new WaitForSeconds(1);
+        coroutine = StartCoroutine(Triangle());
+        yield return new WaitForSeconds(2);
+        StartCoroutine(Circle());
+        yield return coroutine;
+        running--;
+    }
+
+    IEnumerator Square()
+    {
+        running += 1;
         float size = 0;
         while (size < 5)
         {
@@ -36,10 +49,14 @@ public class Growing : MonoBehaviour
             Vector3 scale = new Vector3(size, size, size);
             square.transform.localScale = scale;
             squareTMP.text = "Square: " + scale;
+            yield return null;
         }
+        running -= 1;
+        
     }
-    void Triangle()
+    IEnumerator Triangle()
     {
+        running += 1;
         float size = 0;
         while (size < 5)
         {
@@ -47,11 +64,14 @@ public class Growing : MonoBehaviour
             Vector3 scale = new Vector3(size, size, size);
             triangle.transform.localScale = scale;
             triangleTMP.text = "Triangle: " + scale;
+            yield return null;
         }
+        running -= 1;
+        
     }
-    void Circle()
+    IEnumerator Circle()
     {
-
+        running += 1;
         float size = 0;
         while (size < 5)
         {
@@ -59,6 +79,7 @@ public class Growing : MonoBehaviour
             Vector3 scale = new Vector3(size, size, size);
             circle.transform.localScale = scale;
             circleTMP.text = "Cirlce: " + scale;
+            yield return null;
         }
         while (size > 0)
         {
@@ -66,6 +87,9 @@ public class Growing : MonoBehaviour
             Vector3 scale = new Vector3(size, size, size);
             circle.transform.localScale = scale;
             circleTMP.text = "Cirlce: " + scale;
+            yield return null;
         }
+        running -= 1;
+        StartCoroutine(Circle());
     }
 }
