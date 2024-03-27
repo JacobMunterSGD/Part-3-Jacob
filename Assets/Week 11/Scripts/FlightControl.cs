@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FlightControl : MonoBehaviour
@@ -8,6 +9,33 @@ public class FlightControl : MonoBehaviour
     public float speed = 5;
     public float turningSpeedReduction = 0.75f;
     Coroutine coroutine;
+    float timeOnMoveForwards = 1;
+
+    private void Update()
+    {
+        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("arg!");
+            timeOnMoveForwards = 0;
+        }
+       
+        moveForwards(1);
+
+    }
+
+    void moveForwards(float length)
+    {
+        
+        if (timeOnMoveForwards < length)
+        {
+            timeOnMoveForwards += Time.deltaTime;
+            missile.transform.Translate(transform.right * speed * Time.deltaTime);
+        }
+
+        
+    }
+    
 
     public void MakeTurn(float turn)
     {
