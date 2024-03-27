@@ -9,31 +9,68 @@ public class FlightControl : MonoBehaviour
     public float speed = 5;
     public float turningSpeedReduction = 0.75f;
     Coroutine coroutine;
-    float timeOnMoveForwards = 1;
+    float timeOnMoveForwards = 10;
+    float newInterpolation = 0;
+    float toTurnBy;
+    Quaternion currentHeading;
+    Quaternion newHeading;
 
     private void Update()
     {
         
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("arg!");
             timeOnMoveForwards = 0;
+            newInterpolation = 1;
         }
-       
-        moveForwards(1);
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            newInterpolation = 0;
+            timeOnMoveForwards = 1;
+            toTurnBy = 50;
+        }
+
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            newInterpolation = 0;
+            timeOnMoveForwards = 1;
+            toTurnBy = -50;
+
+        }
+
+        newMoveForwards(1);
+        newMakeTurn(toTurnBy);
 
     }
 
-    void moveForwards(float length)
+    void newMoveForwards(float length)
     {
-        
         if (timeOnMoveForwards < length)
         {
             timeOnMoveForwards += Time.deltaTime;
             missile.transform.Translate(transform.right * speed * Time.deltaTime);
         }
-
         
+    }
+
+    void newMakeTurn(float turn)
+    { 
+
+        if (newInterpolation == 0)
+        {
+            currentHeading = missile.transform.rotation;
+            newHeading = currentHeading * Quaternion.Euler(0, 0, turn);
+        }
+        
+        if (newInterpolation < 1)
+        {
+            newInterpolation += Time.deltaTime;
+            missile.transform.rotation = Quaternion.Lerp(currentHeading, newHeading, newInterpolation);
+            missile.transform.Translate(transform.right * (speed * turningSpeedReduction) * Time.deltaTime);
+        }
+
+
     }
     
 
