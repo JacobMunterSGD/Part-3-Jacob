@@ -6,12 +6,15 @@ using UnityEngine;
 public class Shape : MonoBehaviour
 {
     public float force = 10;
-    Rigidbody2D rb;
+    public Rigidbody2D rb;
+    public SpriteRenderer sr;
 
     void Start()
     {
-        
+
         rb = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
+
         Vector2 tempForce = new Vector2(Random.Range(-5, 5), Random.Range(-5, 5));
         rb.AddRelativeForce(tempForce, ForceMode2D.Impulse);
 
@@ -29,7 +32,7 @@ public class Shape : MonoBehaviour
 
     protected virtual void onInstantiate()
     {
-    
+        
     }
 
     protected virtual void onClick()
