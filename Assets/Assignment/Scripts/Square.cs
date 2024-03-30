@@ -24,6 +24,7 @@ public class Square : Shape
             yield return new WaitForSeconds(timeBetweenShakes);
         }
 
+        
     }
 
     protected override void onClick()
