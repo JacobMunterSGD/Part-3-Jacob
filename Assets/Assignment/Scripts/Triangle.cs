@@ -11,14 +11,6 @@ public class Triangle : Shape
     float green = 0;
     float blue = 0;
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        Vector3 currentColour = new Vector3(sr.color.r, sr.color.g, sr.color.b);
-
-        //float test = collision.gameObject.TryGetComponent<GameObject>(out force force)
-        
-    }
-
     IEnumerator ChangeColour()
     {
         Color currentColour = new Color(sr.color.r, sr.color.g, sr.color.b);
@@ -35,13 +27,17 @@ public class Triangle : Shape
             timeToSwitch -= Time.deltaTime;
             yield return null;
         }
+        
     }
 
     protected override void onClick()
     {
 
         StartCoroutine(ChangeColour());
+        
 
     }
+
+
 
 }

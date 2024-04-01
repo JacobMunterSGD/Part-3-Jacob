@@ -34,9 +34,11 @@ public class Circle : Shape
         while (size > 0)
         {
             size -= Time.deltaTime;
-            transform.localScale = new Vector3(size, size, size); ;
+            transform.localScale = new Vector3(size, size, size);
             yield return null;
         }
+        GameManager.numberOfShapes--;
+        //Debug.Log(GameManager.numberOfShapes);
         Destroy(gameObject);
 
     }
@@ -58,5 +60,7 @@ public class Circle : Shape
         }
 
     }
+
+    
 
 }

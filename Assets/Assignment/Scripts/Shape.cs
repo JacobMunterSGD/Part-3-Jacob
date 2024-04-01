@@ -51,4 +51,10 @@ public class Shape : MonoBehaviour
     
     }
 
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
+    {
+
+        GameManager.growShrinkShape(gameObject);
+    }
+
 }
